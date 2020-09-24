@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                     this._getDeviceInfo();
                   },
-                  child: Text("Start activity and receive data from Android native 2"),
+                  child: Text("Start activity and receive data from Android native 1"),
                 )
               ],
             ),
