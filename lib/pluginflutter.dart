@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class Pluginflutter {
-  static const MethodChannel _channel = const MethodChannel('fluttervnpt2');
+  static const MethodChannel _channel = const MethodChannel('flutterplugin');
 
   Pluginflutter._privateConstructor();
 
@@ -15,7 +15,7 @@ class Pluginflutter {
 
   //MethodChannel
   Future<String> getDeviceInfo(Map<String, dynamic> value) async {
-    final String info = await _channel.invokeMethod('startActivity', value);
+    final String info = await _channel.invokeMethod('startActivityplugin', value);
     return info;
   }
 }

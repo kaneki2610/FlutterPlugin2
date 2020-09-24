@@ -26,7 +26,7 @@ public class SecondActivity extends AppCompatActivity implements CustomActivity.
 		setContentView(R.layout.second_activity);
 
 		Intent intent = getIntent();
-		model = intent.getStringExtra("type");
+		model = intent.getStringExtra("value");
 
 		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
 		handleClick();
@@ -49,7 +49,7 @@ public class SecondActivity extends AppCompatActivity implements CustomActivity.
 			@Override
 			public void onClick(View v) {
 				final Intent data = new Intent();
-				data.putExtra("deviceInfo", deviceInfo);
+				data.putExtra("dataNative", deviceInfo);
 				setResult(Activity.RESULT_OK, data);
 				finish();
 			}

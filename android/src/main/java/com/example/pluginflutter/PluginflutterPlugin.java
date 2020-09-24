@@ -19,8 +19,8 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
  * PluginflutterPlugin
  */
 public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
-	private static final String channelName = "fluttervnpt2";
-	private static final int REQUEST_CODE_FOR_START_ACTIVITY = 2999;
+	private static final String channelName = "flutterplugin";
+	private static final int REQUEST_CODE_FOR_START_ACTIVITY = 101;
 	private static Activity activity;
 	private Result pendingResult;
 	private MethodChannel channel;
@@ -44,14 +44,14 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 
 	@Override
 	public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-		if (call.method.equals("startActivity")) {
+		if (call.method.equals("startActivityplugin")) {
 			this.pendingResult = result;
 			String type = call.argument("type");
 			if (type == null || (type != null && type.isEmpty())) {
 				result.error("ERROR", "type can not null", null);
 			} else {
 				Intent intent = new Intent(activity, SecondActivity.class);
-				intent.putExtra("type", type);
+				intent.putExtra("value", type);
 				activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
 			}
 		} else {
@@ -84,7 +84,7 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 	public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_CODE_FOR_START_ACTIVITY && data != null) {
 			if (resultCode == Activity.RESULT_OK) {
-				String result = data.getStringExtra("deviceInfo");
+				String result = data.getStringExtra("dataNative");
 				pendingResult.success(result);
 			} else {
 				pendingResult.success("");
