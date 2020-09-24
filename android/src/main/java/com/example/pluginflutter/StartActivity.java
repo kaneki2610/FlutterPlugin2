@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.customactivity.CustomActivity;
 
 
-public class SecondActivity extends AppCompatActivity implements CustomActivity.OnSelectedListener {
+public class StartActivity extends AppCompatActivity implements CustomActivity.OnSelectedListener {
 	ImageView btnBackFlutterView;
 	String deviceInfo = "";
 	String model = "";

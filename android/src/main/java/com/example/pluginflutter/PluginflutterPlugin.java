@@ -50,7 +50,7 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 			if (type == null || (type != null && type.isEmpty())) {
 				result.error("ERROR", "type can not null", null);
 			} else {
-				Intent intent = new Intent(activity, SecondActivity.class);
+				Intent intent = new Intent(activity, StartActivity.class);
 				intent.putExtra("value", type);
 				activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
 			}

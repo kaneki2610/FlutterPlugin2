@@ -2,7 +2,7 @@
   package="com.example.pluginflutter">
     <application android:theme="@style/AppTheme">
         <activity
-            android:name=".SecondActivity"
+            android:name=".StartActivity"
             android:theme="@style/Theme.AppCompat.Light"></activity>
     </application>
 </manifest>
