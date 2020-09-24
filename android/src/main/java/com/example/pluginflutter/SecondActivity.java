@@ -12,11 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import com.example.customactivity.CustomActivity;
 
-import com.example.startactivitylibrary.CustomActivity2;
 
-
-public class SecondActivity extends AppCompatActivity implements CustomActivity2.OnSelectedListener {
+public class SecondActivity extends AppCompatActivity implements CustomActivity.OnSelectedListener {
 	ImageView btnBackFlutterView;
 	String deviceInfo = "";
 	String model = "";
@@ -32,15 +31,15 @@ public class SecondActivity extends AppCompatActivity implements CustomActivity2
 		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
 		handleClick();
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		CustomActivity2 newDesign = (CustomActivity2) fragmentManager.findFragmentById(R.id.fragment);
+		CustomActivity newDesign = (CustomActivity) fragmentManager.findFragmentById(R.id.fragment);
 		newDesign.setModel(model);
 	}
 
 	@Override
 	public void onAttachFragment(@NonNull Fragment fragment) {
 		super.onAttachFragment(fragment);
-		if (fragment instanceof CustomActivity2) {
-			CustomActivity2 headlinesFragment = (CustomActivity2) fragment;
+		if (fragment instanceof CustomActivity) {
+			CustomActivity headlinesFragment = (CustomActivity) fragment;
 			headlinesFragment.setOnHeadlineSelectedListener(this);
 		}
 	}
