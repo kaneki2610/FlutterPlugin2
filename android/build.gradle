@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':VnptAndroidModule2')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation project(path: ':VnptAndroidModule')
 }
