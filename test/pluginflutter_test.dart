@@ -16,8 +16,4 @@ void main() {
   tearDown(() {
     channel.setMockMethodCallHandler(null);
   });
-
-  test('getPlatformVersion', () async {
-    expect(await Pluginflutter.platformVersion, '42');
-  });
 }

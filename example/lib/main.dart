@@ -14,32 +14,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _deviceInfo = "empty";
+  String number = "";
+  TextEditingController controller = TextEditingController();
+  bool _validate = false;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await Pluginflutter.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+  @override
+  void dispose() {
+    super.dispose();
+    this.controller.dispose();
   }
 
   @override
@@ -47,12 +35,80 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Plugin example app 2'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Container(
+            margin: EdgeInsets.only(left: 8, right: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "2. Demo method channel:",
+                      style:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Value:   ${this._deviceInfo}",
+                      style: TextStyle(
+                          color: Colors.redAccent, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8),
+                    TextField(
+                        controller: controller,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Enter the Value',
+                          errorText: this._validate ? 'Value Can\'t Be Empty' : null,
+                        ))
+                  ],
+                ),
+                SizedBox(height: 16),
+                RaisedButton(
+                  padding: EdgeInsets.all(8),
+                  onPressed: () {
+                    this._getDeviceInfo();
+                  },
+                  child: Text("Start activity and receive data from Android native 2"),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  void _getDeviceInfo() async {
+    print(controller.text);
+    if (controller.text.isEmpty) {
+      setState(() {
+        this._validate = true;
+      });
+    } else {
+      setState(() {
+        this._validate = false;
+      });
+      try {
+        Map<String, dynamic> param = {};
+        param["type"] = this.controller.text;
+        String result = await Pluginflutter().getDeviceInfo(param);
+        if (result != null) {
+          this._deviceInfo = result;
+        } else {
+          this._deviceInfo = "null";
+        }
+        this.controller.clear();
+        setState(() {});
+      } on PlatformException catch (e) {
+        this._deviceInfo = e.message;
+      }
+    }
   }
 }
