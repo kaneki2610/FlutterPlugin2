@@ -31,8 +31,8 @@ public class StartActivity extends AppCompatActivity implements CustomActivity.O
 		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
 		handleClick();
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		CustomActivity newDesign = (CustomActivity) fragmentManager.findFragmentById(R.id.fragment);
-		newDesign.setModel(model);
+		CustomActivity n = (CustomActivity) fragmentManager.findFragmentById(R.id.fragment);
+		n.setModel(model);
 	}
 
 	@Override
