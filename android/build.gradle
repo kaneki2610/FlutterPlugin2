@@ -17,7 +17,7 @@ rootProject.allprojects {
         google()
         jcenter()
         flatDir {
-            dirs 'libs'
+            dirs 'testLibs'
         }
     }
 }
@@ -38,5 +38,5 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation fileTree(dir: 'libs', include:['*.aar'])
+    implementation fileTree(dir: 'testLibs', include:['*.aar'])
 }
