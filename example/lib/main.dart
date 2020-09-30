@@ -98,9 +98,9 @@ class _MyAppState extends State<MyApp> {
       try {
         Map<String, dynamic> param = {};
         param["type"] = this.controller.text;
-        String result = await Pluginflutter().getDeviceInfo(param);
+        var result = await Pluginflutter().getDeviceInfo(param);
         if (result != null) {
-          this._deviceInfo = result;
+          this._deviceInfo = result["value"];
         } else {
           this._deviceInfo = "null";
         }

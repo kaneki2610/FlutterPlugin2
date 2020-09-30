@@ -32,8 +32,6 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 
 		Intent intent = getIntent();
 		model = intent.getStringExtra("value");
-
-		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
 		btnGotoPluginNative2 = findViewById(R.id.btnGotoPluginNative2);
 
 		handleClick();
@@ -55,16 +53,14 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 		btnBackFlutterView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final Intent data = new Intent();
-				data.putExtra("dataNative", deviceInfo);
-				setResult(Activity.RESULT_OK, data);
+				customModelPlugin.changeData(deviceInfo, "");
 				finish();
 			}
 		});
 		btnGotoPluginNative2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				customModelPlugin.changeData(deviceInfo);
+				customModelPlugin.changeData(deviceInfo, "pushScreen");
 			}
 		});
 	}

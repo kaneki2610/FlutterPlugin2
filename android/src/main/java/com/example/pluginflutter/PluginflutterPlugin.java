@@ -5,6 +5,11 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -81,7 +86,14 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 
 	@Override
 	public void onDataChange() {
-		String data = CustomModelPlugin.getInstance().getData();
-		pendingResult.success(data);
+		Map<String, String> data = CustomModelPlugin.getInstance().getData();
+		JSONObject json = new JSONObject();
+		try {
+			json.put("value", data.get("value"));
+			json.put("event", data.get("event"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		pendingResult.success(json);
 	}
 }
