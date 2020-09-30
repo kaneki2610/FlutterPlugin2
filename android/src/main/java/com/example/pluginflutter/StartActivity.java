@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -19,16 +20,22 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 	ImageView btnBackFlutterView;
 	String deviceInfo = "";
 	String model = "";
+	Button btnGotoPluginNative1;
+	CustomModelPlugin customModelPlugin;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_lib_layout);
 
+		customModelPlugin = CustomModelPlugin.getInstance();
+
 		Intent intent = getIntent();
 		model = intent.getStringExtra("value");
 
 		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
+		btnGotoPluginNative1 = findViewById(R.id.btnGotoPluginNative1);
+
 		handleClick();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		BlankFragment n = (BlankFragment) fragmentManager.findFragmentById(R.id.fragmentBlank);
@@ -52,6 +59,12 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 				data.putExtra("dataNative", deviceInfo);
 				setResult(Activity.RESULT_OK, data);
 				finish();
+			}
+		});
+		btnGotoPluginNative1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				customModelPlugin.changeData(deviceInfo);
 			}
 		});
 	}

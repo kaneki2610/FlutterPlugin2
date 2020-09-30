@@ -18,9 +18,8 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /**
  * PluginflutterPlugin
  */
-public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
+public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, CustomModelPlugin.OnCustomStateListener {
 	private static final String channelName = "flutterplugin";
-	private static final int REQUEST_CODE_FOR_START_ACTIVITY = 101;
 	private static Activity activity;
 	private Result pendingResult;
 	private MethodChannel channel;
@@ -52,7 +51,7 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 			} else {
 				Intent intent = new Intent(activity, StartActivity.class);
 				intent.putExtra("value", type);
-				activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
+				activity.startActivity(intent);
 			}
 		} else {
 			result.notImplemented();
@@ -62,7 +61,6 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 	@Override
 	public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
 		activity = binding.getActivity();
-		binding.addActivityResultListener(this);
 	}
 
 	@Override
@@ -80,17 +78,10 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 		activity = null;
 	}
 
+
 	@Override
-	public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_CODE_FOR_START_ACTIVITY && data != null) {
-			if (resultCode == Activity.RESULT_OK) {
-				String result = data.getStringExtra("dataNative");
-				pendingResult.success(result);
-			} else {
-				pendingResult.success("");
-			}
-			return true;
-		}
-		return false;
+	public void onDataChange() {
+		String data = CustomModelPlugin.getInstance().getData();
+		pendingResult.success(data);
 	}
 }
