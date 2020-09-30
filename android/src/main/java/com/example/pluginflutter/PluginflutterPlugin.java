@@ -4,26 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Map;
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
-import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
-import io.flutter.plugin.common.JSONMethodCodec;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-/**
- * PluginflutterPlugin
- */
 public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, CustomModelPlugin.OnCustomStateListener {
 	private static final String channelName = "flutterplugin";
 	private static Activity activity;
@@ -32,13 +21,13 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 
 	@Override
 	public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
-		channel = new MethodChannel(binding.getFlutterEngine().getDartExecutor(), channelName, JSONMethodCodec.INSTANCE);
+		channel = new MethodChannel(binding.getFlutterEngine().getDartExecutor(), channelName);
 		channel.setMethodCallHandler(this);
 	}
 
 	public static void registerWith(Registrar registrar) {
 		activity = registrar.activity();
-		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName, JSONMethodCodec.INSTANCE);
+		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
 		channel.setMethodCallHandler(new PluginflutterPlugin());
 	}
 
@@ -51,14 +40,11 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 	public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
 		if (call.method.equals("startActivityplugin")) {
 			this.pendingResult = result;
+            CustomModelPlugin.getInstance().setListener(this);
 			String type = call.argument("type");
-			if (type == null || (type != null && type.isEmpty())) {
-				result.error("ERROR", "type can not null", null);
-			} else {
-				Intent intent = new Intent(activity, StartActivity.class);
-				intent.putExtra("value", type);
-				activity.startActivity(intent);
-			}
+            Intent intent = new Intent(activity, StartActivity.class);
+            intent.putExtra("value", type);
+            activity.startActivity(intent);
 		} else {
 			result.notImplemented();
 		}
@@ -87,14 +73,7 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 
 	@Override
 	public void onDataChange() {
-		Map<String, String> data = CustomModelPlugin.getInstance().getData();
-		JSONObject json = new JSONObject();
-		try {
-			json.put("value", data.get("value"));
-			json.put("event", data.get("event"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		pendingResult.success(json);
+		String data =  CustomModelPlugin.getInstance().getData();
+		pendingResult.success(data);
 	}
 }

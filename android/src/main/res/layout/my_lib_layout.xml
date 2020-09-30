@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/holo_purple"
     tools:context=".StartActivity">
     <ImageView
         android:layout_marginLeft="16dp"
@@ -37,6 +38,8 @@
                 android:layout_height="match_parent" />
 
             <Button
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:id="@+id/btnGotoPluginNative2"
                 android:textColor="@android:color/white"
                 android:layout_weight="1"
