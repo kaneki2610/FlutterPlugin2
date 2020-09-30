@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class Pluginflutter {
-  static const MethodChannel _channel = const MethodChannel('flutterplugin');
+  static const MethodChannel _channel = const MethodChannel('flutterplugin', JSONMethodCodec());
 
   Pluginflutter._privateConstructor();
 
