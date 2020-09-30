@@ -23,7 +23,7 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.second_activity);
+		setContentView(R.layout.my_lib_layout);
 
 		Intent intent = getIntent();
 		model = intent.getStringExtra("value");
