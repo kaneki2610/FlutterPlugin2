@@ -33,6 +33,7 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 		Intent intent = getIntent();
 		model = intent.getStringExtra("value");
 		btnGotoPluginNative2 = findViewById(R.id.btnGotoPluginNative2);
+		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
 
 		handleClick();
 		FragmentManager fragmentManager = getSupportFragmentManager();
