@@ -37,13 +37,13 @@
                 android:layout_height="match_parent" />
 
             <Button
-                android:id="@+id/btnGotoPluginNative1"
+                android:id="@+id/btnGotoPluginNative2"
                 android:textColor="@android:color/white"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_blue_light"
-                android:text="Go to Plugin Native 1">
+                android:text="Go to Plugin Native 2">
 
             </Button>
 

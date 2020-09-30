@@ -20,7 +20,7 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 	ImageView btnBackFlutterView;
 	String deviceInfo = "";
 	String model = "";
-	Button btnGotoPluginNative1;
+	Button btnGotoPluginNative2;
 	CustomModelPlugin customModelPlugin;
 
 	@Override
@@ -34,7 +34,7 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 		model = intent.getStringExtra("value");
 
 		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
-		btnGotoPluginNative1 = findViewById(R.id.btnGotoPluginNative1);
+		btnGotoPluginNative2 = findViewById(R.id.btnGotoPluginNative2);
 
 		handleClick();
 		FragmentManager fragmentManager = getSupportFragmentManager();
@@ -61,7 +61,7 @@ public class StartActivity extends AppCompatActivity implements BlankFragment.On
 				finish();
 			}
 		});
-		btnGotoPluginNative1.setOnClickListener(new View.OnClickListener() {
+		btnGotoPluginNative2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				customModelPlugin.changeData(deviceInfo);
