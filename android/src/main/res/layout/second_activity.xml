@@ -20,8 +20,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:id="@+id/fragment"
-        android:name="com.example.customactivity.CustomActivity"
+        android:id="@+id/fragmentBlank"
+        android:name="com.example.mylibrary.BlankFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
