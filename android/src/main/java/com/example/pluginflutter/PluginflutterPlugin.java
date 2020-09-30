@@ -13,6 +13,7 @@ import java.util.Map;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+import io.flutter.plugin.common.JSONMethodCodec;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -31,13 +32,13 @@ public class PluginflutterPlugin implements FlutterPlugin, MethodCallHandler, Ac
 
 	@Override
 	public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
-		channel = new MethodChannel(binding.getFlutterEngine().getDartExecutor(), channelName);
+		channel = new MethodChannel(binding.getFlutterEngine().getDartExecutor(), channelName, JSONMethodCodec.INSTANCE);
 		channel.setMethodCallHandler(this);
 	}
 
 	public static void registerWith(Registrar registrar) {
 		activity = registrar.activity();
-		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
+		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName, JSONMethodCodec.INSTANCE);
 		channel.setMethodCallHandler(new PluginflutterPlugin());
 	}
 
